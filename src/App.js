@@ -1,10 +1,11 @@
-import { useState } from "react";
-import "./styles.css";
+import { useState } from 'react';
+import './styles.css';
+import './Game.css';
 
 function Square({ value, onSquareClick, isWinningSquare }) {
   return (
     <button
-      className={isWinningSquare ? "square color" : "square"}
+      className={isWinningSquare ? 'square color' : 'square'}
       onClick={onSquareClick}
     >
       {value}
@@ -18,17 +19,17 @@ function Board({ xIsNext, squares, onPlay }) {
   function handleClick(i) {
     if (winnerLine || squares[i]) return;
     const nextSquares = squares.slice();
-    nextSquares[i] = xIsNext ? "X" : "O";
+    nextSquares[i] = xIsNext ? 'X' : 'O';
     onPlay(nextSquares);
   }
 
   let status;
   if (winnerLine) {
-    status = "Winner: " + squares[winnerLine[0]];
+    status = 'Winner: ' + squares[winnerLine[0]];
   } else if (!squares.includes(null)) {
-    status = "draw!";
+    status = 'draw!';
   } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
+    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
 
   function renderSquare(i) {
@@ -83,7 +84,7 @@ export default function Game() {
   }
 
   let moves = history.map((_, move) => {
-    const description = move > 0 ? "Go to move #" + move : "Go to game start";
+    const description = move > 0 ? 'Go to move #' + move : 'Go to game start';
     return (
       <li key={move}>
         <button onClick={() => jumpTo(move)}>{description}</button>
@@ -102,7 +103,7 @@ export default function Game() {
       </div>
       <div className="game-info">
         <button onClick={toggleSortOrder}>
-          {sortAscending ? "오름차순" : "내림차순"}
+          {sortAscending ? '오름차순' : '내림차순'}
         </button>
         <ol reversed={!sortAscending}>{moves}</ol>
       </div>
@@ -124,7 +125,7 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return [a, b, c]; // 승리한 index들 반환
+      return [a, b, c];
     }
   }
   return null;
